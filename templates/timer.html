@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+p {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 0px;
+}
+
+div.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background-color: CornflowerBlue;
+  padding: 0px;
+  text-align: center;
+  font-size: 32px;
+}
+</style>
+</head>
+<body>
+<div class="sticky">De pomp gaat uit over:</div>  
+<br><br><br>
+<p id="demo"></p>
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("{{my_time}}".replace(/\s/, 'T')).getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = parseInt(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))-2;
+  var minutes = parseInt(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+  var seconds = parseInt(Math.floor((distance % (1000 * 60)) / 1000));
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+<form method='POST' action='/terug/'>
+  <center><button type="submit" >Terug</button></center>
+</form>
+</body>
+</html>
+
