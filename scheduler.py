@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+#dit is een voorbeeld
+
 from flask import Flask, render_template, request, url_for
 from crontab import CronTab
 import datetime
