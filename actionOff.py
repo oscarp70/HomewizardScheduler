@@ -11,8 +11,6 @@ from io import BytesIO
 import os
 import sys
 
-#sys.path.append(os.path.abspath("/home/oscarp/.local/lib/python3.6/site-packages/crontab.py"))
-
 config = configparser.ConfigParser()
 config.sections()
 config_file = os.path.join(os.path.dirname(__file__), 'scheduler.ini')
