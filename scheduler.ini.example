@@ -1,0 +1,20 @@
+[ACTION]
+homewizard_address = <ip of homewizard> 
+homewizard_password = <password of homewizard>
+homewizard_port = <port of homewizard>
+switch = 9
+
+[PATHS]
+app = <application path>
+python = <python3 path>
+
+[SERVER]
+port = <server port>
+debug = <True or False>
+offset = <time offset, usually 0>
+
+[PUSHOVER]
+enabled = <True or False>
+token = <Pushover application token>
+user = <Pushover user token>
+message = <Custom pushover message>
