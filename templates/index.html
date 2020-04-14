@@ -1,5 +1,5 @@
 <head>
-    <title>Beregening</title>
+    <title>Homewizard Scheduler</title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
     <link rel="icon" href="{{url_for('static',filename='drop.png')}}"></link>
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles.css')}}" media="screen"/>
@@ -7,14 +7,14 @@
 <body>
 
 <div id="page_wrapper">
-<div class="sticky">Beregening</div>    
+<div class="sticky">Homewizard Scheduler</div>    
 <form action="/timer/" method="post">
 <p>
 <div class="slidecontainer">
-<div class="labels">Uren:  <span id="uren_waarde"></span></div>
-<input type="range" name="uren" class="slider" id="uren" list="uren_list"
+<div class="labels">Hours:  <span id="hours_value"></span></div>
+<input type="range" name="hours" class="slider" id="hours" list="hours_list"
   step="1" min="0" max="5">
-<datalist id="uren_list">
+<datalist id="hours_list">
   <option>0</option>
   <option>1</option>
   <option>2</option>
@@ -25,8 +25,8 @@
 </div>
 
 <script>
-var slider = document.getElementById("uren");
-var output = document.getElementById("uren_waarde");
+var slider = document.getElementById("hours");
+var output = document.getElementById("hours_value");
 output.innerHTML = slider.value;
 
 slider.oninput = function() {
@@ -35,11 +35,12 @@ slider.oninput = function() {
 </script>
 
 <div class="slidecontainer">
-<div class="labels">Minuten: <span id="minuten_waarde"></span></div>
-<input type="range" name="minuten" class="slider" id="minuten" list="minuten_list"
-  step="10" min="0" max="50">
-<datalist id="minuten_list">
+<div class="labels">Minutes: <span id="minutes_value"></span></div>
+<input type="range" name="minutes" class="slider" id="minutes" list="minutes_list"
+  step="2" min="0" max="50">
+<datalist id="minutes_list">
   <option>0</option>
+  <option>2</option>
   <option>10</option>
   <option>20</option>
   <option>30</option>
@@ -50,8 +51,8 @@ slider.oninput = function() {
 </p>
 
 <script>
-var slider2 = document.getElementById("minuten");
-var output2 = document.getElementById("minuten_waarde");
+var slider2 = document.getElementById("minutes");
+var output2 = document.getElementById("minutes_value");
 output2.innerHTML = slider2.value;
 
 slider2.oninput = function() {
@@ -59,10 +60,10 @@ output2.innerHTML = this.value;
 }
 </script>
 
-<div class="labels">Pomp aan </div>
-<center><input type="checkbox" id="pompAan" name="pompAan" value="pompAan"></center>
+<div class="labels">Start action </div>
+<center><input type="checkbox" id="actionOn" name="actionOn" value="actionOn"></center>
 <br>
-<button name="scheduleBtn" type="submit" class="block">Timer activeren</button>
+<button name="scheduleBtn" type="submit" class="block">Activate scheduler</button>
 </form>
    
 </div>
