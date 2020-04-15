@@ -1,10 +1,21 @@
 FROM python:3
 
-ADD Rest.py /
-ADD mieleRequest.py /
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && apt-get update -y && \
+    apt-get install -y python-pip python-dev cron
 
-RUN pip3 install pymysql
-RUN pip3 install requests
-RUN pip3 install phue
+COPY ./requirements.txt /app/requirements.txt
 
-CMD [ "python", "/Rest.py" ]
+WORKDIR /app
+
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && pip install -r requirements.txt
+RUN apk add libcurl4-openssl-dev 
+RUN apk add libssl-dev
+
+COPY . /app
+
+EXPOSE 8095
+
+ENTRYPOINT [ "python" ]
+
+CMD [ "scheduler.py" ]
+
