@@ -69,7 +69,7 @@ def schedule_timer():
      if job.comment[:9] == 'actionOff':
         my_cron.remove(job)
         my_cron.write()
-   job = my_cron.new(command=f'sudo {python_path} {app_path}/actionOff.py > /home/oscarp/cronlog 2>&1' , comment=f'actionOff {my_time}')
+   job = my_cron.new(command=f'sudo {python_path} {app_path}/actionOff.py > {app_path}/cronlog 2>&1' , comment=f'actionOff {my_time}')
    job.setall(f'{minutes} {hours} * * *')   
    my_cron.write()
    return render_template('timer.html', my_time=my_time, offset=offset);
