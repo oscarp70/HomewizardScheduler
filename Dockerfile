@@ -1,15 +1,16 @@
 FROM python:3
 
+ENV TZ=Europe/Amsterdam
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && apt-get update -y && \
-    apt-get install -y python-pip python-dev cron
+    apt-get install -y python-pip python-dev cron libcurl4-openssl-dev libssl-dev nano
 
 COPY ./requirements.txt /app/requirements.txt
 
 WORKDIR /app
 
 RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && pip install -r requirements.txt
-RUN apk add libcurl4-openssl-dev 
-RUN apk add libssl-dev
 
 COPY . /app
 

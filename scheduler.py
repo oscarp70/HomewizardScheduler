@@ -1,4 +1,4 @@
-#!/usr/bin/python3	
+#!/usr/bin/python3
 
 from flask import Flask, render_template, request, url_for
 from crontab import CronTab
@@ -20,18 +20,17 @@ homewizard_password = config['ACTION']['homewizard_password']
 homewizard_port = config['ACTION']['homewizard_port']
 switch = config['ACTION']['switch']
 server_port = config['SERVER']['port']
-debug = config['SERVER']['debug']
 offset = config['SERVER']['offset']
+debug = config['SERVER']['debug']
 python_path = config['PATHS']['python']
 app_path = config['PATHS']['app']
-
-
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
   my_time = "time"
+  my_url = "index.html"
   my_cron = CronTab(user='root')
   for job in my_cron:
     if job.comment[:9] == 'actionOff':
@@ -47,11 +46,11 @@ def index():
           my_url="timer.html"
     else:
         my_url="index.html"
-  return render_template(my_url, my_time=my_time)
+  return render_template(my_url, my_time=my_time, offset=offset)
 
 @app.route("/timer/", methods=['POST'])
 def schedule_timer():
-   delta_h = int(request.form["hours"]) + int(offset)
+   delta_h = int(request.form["hours"]) 
    delta_m = int(request.form["minutes"])
    action_now = request.form.get('actionOn')
    if action_now:
@@ -73,7 +72,7 @@ def schedule_timer():
    job = my_cron.new(command=f'sudo {python_path} {app_path}/actionOff.py > /home/oscarp/cronlog 2>&1' , comment=f'actionOff {my_time}')
    job.setall(f'{minutes} {hours} * * *')   
    my_cron.write()
-   return render_template('timer.html', my_time=my_time);
+   return render_template('timer.html', my_time=my_time, offset=offset);
 
 @app.route("/back/", methods=['POST'])
 def back():
