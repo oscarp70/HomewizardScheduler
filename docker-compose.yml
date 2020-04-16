@@ -7,4 +7,5 @@ services:
     container_name: scheduler
     ports:
       - 8095:8095
-
+    dns:
+      - 8.8.8.8

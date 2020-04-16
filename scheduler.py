@@ -9,6 +9,7 @@ import requests
 import configparser
 from distutils.util import strtobool
 import pycurl
+import os
 from io import BytesIO
 
 config = configparser.ConfigParser()
@@ -50,6 +51,7 @@ def index():
 
 @app.route("/timer/", methods=['POST'])
 def schedule_timer():
+   returned_value = os.system("/usr/sbin/service cron start")
    delta_h = int(request.form["hours"]) 
    delta_m = int(request.form["minutes"])
    action_now = request.form.get('actionOn')
@@ -69,7 +71,7 @@ def schedule_timer():
      if job.comment[:9] == 'actionOff':
         my_cron.remove(job)
         my_cron.write()
-   job = my_cron.new(command=f'sudo {python_path} {app_path}/actionOff.py > {app_path}/cronlog 2>&1' , comment=f'actionOff {my_time}')
+   job = my_cron.new(command=f'{python_path} {app_path}/actionOff.py' , comment=f'actionOff {my_time}')
    job.setall(f'{minutes} {hours} * * *')   
    my_cron.write()
    return render_template('timer.html', my_time=my_time, offset=offset);
