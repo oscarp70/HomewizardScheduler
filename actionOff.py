@@ -5,6 +5,7 @@ import datetime
 import time
 import http.client, urllib
 import configparser
+import requests
 from distutils.util import strtobool
 import pycurl
 from io import BytesIO
@@ -40,6 +41,8 @@ for job in my_cron:
       my_cron.write()
 
 if bool(strtobool(pushover)):
+  returned_value = os.system("/bin/ping 8.8.8.8 -c 10")
+  time.sleep(5)
   conn = http.client.HTTPSConnection("api.pushover.net:443")
   conn.request("POST", "/1/messages.json",
     urllib.parse.urlencode({
